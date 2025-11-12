@@ -230,7 +230,9 @@ class Bot(Router):
         }
         payload = {k: v for k, v in payload.items() if v}
 
-        response = await self.patch("https://platform-api.max.ru/me", json=payload)
+        response = await self.patch(
+            "https://platform-api.max.ru/me", json=payload
+        )
         data = await response.json()
 
         # caching info
@@ -288,7 +290,9 @@ class Bot(Router):
 
         :param chat_id: The ID of the chat.
         """
-        response = await self.get(f"https://platform-api.max.ru/chats/{chat_id}")
+        response = await self.get(
+            f"https://platform-api.max.ru/chats/{chat_id}"
+        )
         json = await response.json()
 
         return Chat.from_json(json)
@@ -300,7 +304,9 @@ class Bot(Router):
 
         :param chat_id: The ID of the chat.
         """
-        response = await self.get(f"https://platform-api.max.ru/chats/{chat_id}/pin")
+        response = await self.get(
+            f"https://platform-api.max.ru/chats/{chat_id}/pin"
+        )
         json = await response.json()
 
         if json["message"] is None:
@@ -388,7 +394,8 @@ class Bot(Router):
             "user_ids": user_ids if isinstance(user_ids, list) else [user_ids]
         }
         response = await self.get(
-            f"https://platform-api.max.ru/chats/{chat_id}/members", params=params
+            f"https://platform-api.max.ru/chats/{chat_id}/members",
+            params=params,
         )
 
         users = [User.from_json(i) for i in (await response.json())["members"]]
@@ -416,7 +423,8 @@ class Bot(Router):
             }
             params = {k: v for k, v in params.items() if v}
             response = await self.get(
-                f"https://platform-api.max.ru/chats/{chat_id}/members", params=params
+                f"https://platform-api.max.ru/chats/{chat_id}/members",
+                params=params,
             )
             data = await response.json()
 
@@ -460,7 +468,8 @@ class Bot(Router):
             params["block"] = str(block)
 
         response = await self.delete(
-            f"https://platform-api.max.ru/chats/{chat_id}/members/", params=params
+            f"https://platform-api.max.ru/chats/{chat_id}/members/",
+            params=params,
         )
 
         return await response.json()
@@ -654,7 +663,9 @@ class Bot(Router):
 
         try:
             response = await self.post(
-                "https://platform-api.max.ru/messages", params=params, json=body
+                "https://platform-api.max.ru/messages",
+                params=params,
+                json=body,
             )
             json = await response.json()
             if not json.get("success", True):
@@ -711,7 +722,9 @@ class Bot(Router):
 
         try:
             response = await self.put(
-                "https://platform-api.max.ru/messages", params=params, json=body
+                "https://platform-api.max.ru/messages",
+                params=params,
+                json=body,
             )
             json = await response.json()
             if not json.get("success", True):
