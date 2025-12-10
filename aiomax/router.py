@@ -87,7 +87,7 @@ class Router:
         """
         Returns all handlers in this and all the child routers.
         """
-        out = deepcopy(self._handlers)
+        out = self._handlers.copy()
 
         for router in self.routers:
             for handler_type in out:
