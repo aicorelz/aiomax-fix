@@ -1042,8 +1042,8 @@ class Bot(Router):
                     bot_logger.exception(e)
                     await asyncio.sleep(3)
 
-                except asyncio.exceptions.CancelledError:
-                    break  # Python 3.9 throws an error when exit() is used
+#                except asyncio.exceptions.CancelledError:
+#                    break  # Python 3.9 throws an error when exit() is used
 
         self.session = None
         self.polling = False
